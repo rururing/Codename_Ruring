@@ -26,6 +26,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
             {
                 obj = new GameObject { name = "@" + typeof(T).ToString() + "(MonoSingleton)" };
                 _instance = obj.AddComponent<T>();
+                return true;
             }
             else
             {
@@ -34,9 +35,9 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
             
             DontDestroyOnLoad(obj);
 
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 }
