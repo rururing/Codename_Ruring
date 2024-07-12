@@ -28,13 +28,24 @@ public class Enemy : MonoBehaviour
 
     public UnityEvent<EHitState> OnDecided;
 
+    float _moveSpeed;
+    Rigidbody2D _enemyRb;
+
+    public float MoveSpeed
+    {
+        get { return _moveSpeed; }
+        set { _moveSpeed = value; }
+    }
+
+    public Rigidbody2D EnemyRb => _enemyRb;
+    
     void Awake()
     {
         _decisionCircle = transform.GetChild(0).gameObject;
         _decCircleFirstScale = _decisionCircle.transform.lossyScale.x;
         _targetScale = transform.lossyScale.x;
+        _enemyRb = GetComponent<Rigidbody2D>();
     }
-
     void OnEnable()
     {
         StartCoroutine("ShrinkCircle");
@@ -42,7 +53,7 @@ public class Enemy : MonoBehaviour
     void OnDisable()
     {
         StopCoroutine("ShrinkCircle");
-        ResetStatus();
+        ResetStatus_Disable();
     }
 
     void Update()
@@ -83,9 +94,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void ResetStatus()
+    void ResetStatus_Disable()
     {
         _decisionCircle.transform.localScale = new Vector3(_decCircleFirstScale, _decCircleFirstScale, _decCircleFirstScale);
+        _enemyRb.velocity = Vector2.zero;
+
         transform.gameObject.SetActive(false);
     }
 
