@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-// TODO: �� State �� �Ӱ谪 ����
+// TODO: 각 State 당 임계값 설정
 public enum EHitState
 { 
     None,
@@ -27,27 +27,30 @@ public class Enemy : MonoBehaviour
 
     float _targetScale;
 
-    float _scaleDiff;
-
     public UnityEvent<EHitState> OnDecided;
 
-    void Start()
+    void Awake()
     {
         _decisionCircle = transform.GetChild(0).gameObject;
+        _decCircleFirstScale = _decisionCircle.transform.lossyScale.x;
+        _targetScale = transform.lossyScale.x;
+    }
 
-        _decCircleFirstScale = _decisionCircle.transform.localScale.x;
-
-        _targetScale = transform.localScale.x;
-
-        _scaleDiff = _decCircleFirstScale - _targetScale;
-
+    void OnEnable()
+    {
         StartCoroutine("ShrinkCircle");
+    }
+    void OnDisable()
+    {
+        StopCoroutine("ShrinkCircle");
+        ResetStatus();
     }
 
     void Update()
     {
         CheckCircle();
     }
+
     IEnumerator ShrinkCircle()
     {
         yield return null;
@@ -56,7 +59,6 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             newScale -= (_decCircleFirstScale - Mathf.Lerp(_decCircleFirstScale, _targetScale, Time.deltaTime / _decisionTime));
-
             _decisionCircle.transform.localScale = new Vector3(newScale, newScale, newScale);
 
             yield return null;
@@ -65,19 +67,32 @@ public class Enemy : MonoBehaviour
 
     void CheckCircle()
     {
-        if (_decisionCircle.transform.lossyScale.x <= transform.lossyScale.x)
+        float currentScale = _decisionCircle.transform.lossyScale.x;
+        float targetScale = transform.lossyScale.x;
+        if (currentScale <= targetScale) 
         {
             OnDecided?.Invoke(EHitState.Fail);
-            ResetStatus();
+            gameObject.SetActive(false);
+        }
+        else if (currentScale > targetScale)
+        {
+            // TODO: EhitState 판정 판단해서 각 경우에 대한 이벤트 전달
+            
         }
     }
 
     void ResetStatus()
     {
         _decisionCircle.transform.localScale = new Vector3(_decCircleFirstScale, _decCircleFirstScale, _decCircleFirstScale);
-        Debug.Log("OK");
         transform.gameObject.SetActive(false);
     }
+
+    public void Hit()
+    {
+        // TODO: 간격 판정 후 점수 invoke
+    }
+
+
 
 }
 
