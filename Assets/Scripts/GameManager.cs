@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    ObjectPoolManager _poolManager;
+    public ObjectPoolManager _poolManager;
     
     string _sceneShootingName = "Scene_Shooting";
 
@@ -59,7 +59,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     void HandleScore(EHitState hitState)
     {
-
         switch (hitState)
         {
             case EHitState.Fail:

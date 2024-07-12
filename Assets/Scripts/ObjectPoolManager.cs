@@ -39,6 +39,20 @@ public class ObjectPoolManager : MonoBehaviour
         print("POOLS OFF");
     }
 
+    public GameObject SetEnemyObjReady()
+    {
+        for(int i=0; i<_enemyPool.Length; i++)
+        {
+            if (!_enemyPool[i].activeSelf)
+            {
+                _enemyPool[i].SetActive(true);
+                return _enemyPool[i];
+            }
+        }
+        Debug.Log("ALL ENEMIES ARE ACTIVE NOW");
+        return null;
+    }
+
 
 
 
