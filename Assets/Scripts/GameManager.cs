@@ -59,7 +59,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     void HandleScore(EHitState hitState)
     {
-
         switch (hitState)
         {
             case EHitState.Fail:

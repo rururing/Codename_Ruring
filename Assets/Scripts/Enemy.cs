@@ -24,7 +24,6 @@ public class Enemy : MonoBehaviour
     GameObject _decisionCircle;
     
     float _decCircleFirstScale;
-
     float _targetScale;
 
     public UnityEvent<EHitState> OnDecided;
@@ -59,7 +58,10 @@ public class Enemy : MonoBehaviour
         while (true)
         {
             newScale -= (_decCircleFirstScale - Mathf.Lerp(_decCircleFirstScale, _targetScale, Time.deltaTime / _decisionTime));
+
+            _decisionCircle.transform.parent = null;
             _decisionCircle.transform.localScale = new Vector3(newScale, newScale, newScale);
+            _decisionCircle.transform.parent = transform;
 
             yield return null;
         }
@@ -90,6 +92,7 @@ public class Enemy : MonoBehaviour
     public void Hit()
     {
         // TODO: 간격 판정 후 점수 invoke
+        
     }
 
 
