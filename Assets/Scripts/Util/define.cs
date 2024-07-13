@@ -19,11 +19,8 @@ public enum EHitState
 { 
     None,
     Fail,
-    Bad,
-    Good,
-    Perfect
+    Success
 }
-
 // Used in SoundManager
 public enum ESoundType // Resources/Sound/Effect
 {
