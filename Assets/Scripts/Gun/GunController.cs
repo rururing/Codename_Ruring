@@ -47,4 +47,6 @@ public class GunController : MonoBehaviour
     {
         return calAngle >= angleLimit || calAngle <= -angleLimit;
     }
+
+
 }
