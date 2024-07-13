@@ -18,6 +18,7 @@ namespace Game
             _musicPattern = GameManager.MusicPattern[LevelMode.Normal];
             timer = gameObject.GetComponent<Timer>();
             timer.RestartTimer();
+            Debug.Log(_musicPattern.Count);
         }
     
         void FixedUpdate()
