@@ -19,15 +19,17 @@ namespace Game
             _musicPattern = GameManager.MusicPattern[LevelMode.Normal];
             timer = gameObject.GetComponent<Timer>();
             timer.RestartTimer();
+            Debug.Log(_musicPattern.Count);
+            BGMManager.Instance.PlayBGM(EBGMType.StarBubble);
         }
     
         void FixedUpdate()
         {
-            if (musicIndex > _musicPattern.Count) return;
+            if (musicIndex >= _musicPattern.Count) return;
 
             Debug.Log($"{_musicPattern[musicIndex].time}, {timer.currentTime}");
 
-            if (_musicPattern[musicIndex].time <= timer.currentTime)
+            if (_musicPattern[musicIndex].time - level_shrinkSpeed <= timer.currentTime)
             {
                 GameManager.Alerting.Alert(musicIndex.ToString(), AlertMode.Pop, 0.5f);
 

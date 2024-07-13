@@ -14,7 +14,7 @@ public class GameManager : MonoSingleton<GameManager>
         get { return Instance._poolManager; }
     }
 
-    //SoundManager _soundManager;
+    SoundManager _soundManager;
     
     private AlertManager alert;
     public static AlertManager Alerting { get { return Instance.alert; } }
@@ -78,7 +78,9 @@ public class GameManager : MonoSingleton<GameManager>
         {
             Cursor.visible = true;
             _poolManager = null;
+            
         }
+            
 
         if(scene.name == "Lobby")
         {
