@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,11 +10,21 @@ public class GameManager : MonoSingleton<GameManager>
 {
     public ObjectPoolManager _poolManager;
     //SoundManager _soundManager;
+    private AlertManager alert;
+    public static AlertManager Alerting { get { return Instance.alert; } }
     
+    public static Dictionary<LevelMode, List<MusicData>> MusicPattern { get; private set; }= new Dictionary<LevelMode, List<MusicData>>();
+
     string _sceneShootingName = "Scene_Shooting";
 
     float _totalScore;
     int _failScore, _badScore, _goodScore, _perfectScore;
+
+    private void Awake()
+    {
+        base.Awake();
+        alert = new AlertManager();
+    }
 
     void Start()
     {

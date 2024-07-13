@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     public void PopUI(GameObject obj)
     {
         obj.SetActive(true);
-    }
+    } 
 
     public void DeleteUI(GameObject obj)
     {
