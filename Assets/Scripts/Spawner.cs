@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour
         _targetPos = transform.GetChild(0).transform.position; // WC
 
         // TEST
-        ReleaseEnemy(5.0f, 2.0f, 8);
+        //ReleaseEnemy(5.0f, 2.0f, 8);
     }
     
     public void ReleaseEnemy(float moveSpeed, float decisionTime, int spawnPoint)

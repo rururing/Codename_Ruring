@@ -84,9 +84,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             Cursor.visible = true;
             _poolManager = null;
-            
         }
-            
 
         if(scene.name == "Lobby")
         {
@@ -102,16 +100,16 @@ public class GameManager : MonoSingleton<GameManager>
                 if (--_playerLife <= 0)
                 {
                     print("GAME OVER");
-                    GameOver.Invoke();
+                    GameOver?.Invoke();
                 }
                 print("FAIL SCORE ADDED");
-                Success.Invoke();
+                Success?.Invoke();
                 break;
 
             case EHitState.Success:
                 _totalScore += _successScore;
                 print("SUCCESS SCORE ADDED");
-                Fail.Invoke();
+                Fail?.Invoke();
                 break;
             default:
                 break;
