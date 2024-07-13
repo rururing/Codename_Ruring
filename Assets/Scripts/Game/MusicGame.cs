@@ -16,11 +16,21 @@ namespace Game
         private LevelMode _currentLevel;
         private float _decisionTime = 2.0f;
 
+        public static int Combo = 0;
         public void Awake()
         {
             _musicPattern = GameManager.MusicPattern[LevelMode.Normal];
             timer = gameObject.GetComponent<Timer>();
             timer.RestartTimer();
+
+            GameManager._playerLife = 3;
+            Combo = 0;
+            
+            GameManager.Success -= ComboUp;
+            GameManager.Success += ComboUp;
+            GameManager.Fail -= ComboFail;
+            GameManager.Fail += ComboFail;
+            
             Debug.Log(_musicPattern.Count);
             BGMManager.Instance.PlayBGM(EBGMType.StarBubble);
         }
@@ -42,6 +52,16 @@ namespace Game
 
                 musicIndex++;
             }
+        }
+
+        public void ComboUp()
+        {
+            Combo++;
+        }
+
+        public void ComboFail()
+        {
+            Combo = 0;
         }
 
         public void DecideDecisionTime()
