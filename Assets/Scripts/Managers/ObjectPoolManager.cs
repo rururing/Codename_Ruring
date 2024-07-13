@@ -47,22 +47,8 @@ public class ObjectPoolManager : MonoBehaviour
         print("POOLS OFF");
     }
 
-    public GameObject GetEnemyObjReady(float moveSpeed, LevelMode currentLevel)
+    public GameObject GetEnemyObjReady(float moveSpeed, float decisionTime)
     {
-        float decisionTime = 0f;
-        switch(currentLevel)
-        {
-            case LevelMode.Easy:
-                decisionTime = 2.5f;
-                break;
-            case LevelMode.Normal:
-                decisionTime = 2.0f;
-                break;
-            case LevelMode.Hard:
-                decisionTime = 1.5f;
-                break;
-        }
-
         for(int i=0; i<_enemyObjs.Length; i++)
         {
             if (!_enemyObjs[i].activeSelf)

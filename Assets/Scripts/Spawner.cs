@@ -31,14 +31,14 @@ public class Spawner : MonoBehaviour
         _targetPos = transform.GetChild(0).transform.position; // WC
 
         // TEST
-        ReleaseEnemy(5.0f, LevelMode.Normal);
+        ReleaseEnemy(5.0f, 2.0f);
     }
     
-    public void ReleaseEnemy(float moveSpeed, LevelMode currentLevel)
+    public void ReleaseEnemy(float moveSpeed, float decisionTime)
     {
         if (_spawnerPathMode == EPathMode.None) return;
 
-        GameObject enemyObj = _poolManager.GetEnemyObjReady(moveSpeed, currentLevel);
+        GameObject enemyObj = _poolManager.GetEnemyObjReady(moveSpeed, decisionTime);
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
 

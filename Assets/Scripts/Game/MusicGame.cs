@@ -12,7 +12,9 @@ namespace Game
         private List<MusicData> _musicPattern;
         private Timer timer;
         private int musicIndex = 0;
+
         private LevelMode _currentLevel;
+        private float _decisionTime = 2.0f;
 
         public void Awake()
         {
@@ -29,14 +31,31 @@ namespace Game
 
             Debug.Log($"{_musicPattern[musicIndex].time}, {timer.currentTime}");
 
-            if (_musicPattern[musicIndex].time - level_shrinkSpeed <= timer.currentTime)
+            if (_musicPattern[musicIndex].time - _decisionTime <= timer.currentTime)
             {
                 GameManager.Alerting.Alert(musicIndex.ToString(), AlertMode.Pop, 0.5f);
 
                 GameManager.PoolManager.GetSpawner(_musicPattern[musicIndex].spawnPoint).
-                    GetComponent<Spawner>().ReleaseEnemy(_musicPattern[musicIndex].speed, _currentLevel);
+                    GetComponent<Spawner>().ReleaseEnemy(_musicPattern[musicIndex].speed, _decisionTime);
 
                 musicIndex++;
+            }
+        }
+
+        public void DecideDecisionTime()
+        {
+            switch(_currentLevel) 
+            {
+                case LevelMode.Easy:
+                    _decisionTime = 2.5f;
+                    break;
+                case LevelMode.Normal:
+                    _decisionTime = 2f;
+                    break;
+                case LevelMode.Hard:
+                    _decisionTime = 1.5f;
+                    break;
+
             }
         }
     }
