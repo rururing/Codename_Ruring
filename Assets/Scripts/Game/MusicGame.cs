@@ -12,7 +12,8 @@ namespace Game
         private List<MusicData> _musicPattern;
         private Timer timer;
         private int musicIndex = 0;
-    
+        private LevelMode _currentLevel;
+
         public void Awake()
         {
             _musicPattern = GameManager.MusicPattern[LevelMode.Normal];
@@ -31,7 +32,7 @@ namespace Game
                 GameManager.Alerting.Alert(musicIndex.ToString(), AlertMode.Pop, 0.5f);
 
                 GameManager.PoolManager.GetSpawner(_musicPattern[musicIndex].spawnPoint).
-                    GetComponent<Spawner>().ReleaseEnemy(_musicPattern[musicIndex].speed);
+                    GetComponent<Spawner>().ReleaseEnemy(_musicPattern[musicIndex].speed, _currentLevel);
 
                 musicIndex++;
             }
