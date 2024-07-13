@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoSingleton<GameManager>
 {
     public ObjectPoolManager _poolManager;
+    //SoundManager _soundManager;
     
     string _sceneShootingName = "Scene_Shooting";
 
@@ -17,6 +18,8 @@ public class GameManager : MonoSingleton<GameManager>
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        //_soundManager = SoundManager.Instance;
 
         // TODO: 값 변경
         _failScore = -5;
