@@ -4,18 +4,6 @@ using UnityEngine;
 using GoogleSheetsToUnity;
 using GoogleSheetsToUnity.ThirdPary;
 
-public struct MusicData
-{
-    public float time;
-    public string route;
-}
-
-public enum LevelMode
-{
-    Easy,
-    Normal,
-    Hard,
-}
 public class PatternReader : MonoBehaviour
 {
     [Header("스프레드 시트 주소")] private string sheetID = "1lPHdtH27k1ShD0M3IEVtqN_YfnZEMzsLAs80--AZzYk";

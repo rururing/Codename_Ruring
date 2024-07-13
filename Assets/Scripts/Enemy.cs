@@ -8,14 +8,6 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 // TODO: 각 State 당 임계값 설정
-public enum EHitState
-{ 
-    None,
-    Fail,
-    Bad,
-    Good,
-    Perfect
-}
 
 public class Enemy : MonoBehaviour
 {
