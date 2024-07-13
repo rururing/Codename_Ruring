@@ -421,7 +421,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2045889120426246976}
-  - {fileID: 8210958948066038292}
+  - {fileID: 2811192302440304003}
   - {fileID: 5638755882530620038}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -937,7 +937,7 @@ MonoBehaviour:
         m_MethodName: PopUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 4680078760146128611}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1419,18 +1419,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Popup_Setting
       objectReference: {fileID: 0}
+    - target: {fileID: 6023802576853360540, guid: 043ce4520d73bd848bfef17a650e6748, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023802576853360540, guid: 043ce4520d73bd848bfef17a650e6748, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023802576853360540, guid: 043ce4520d73bd848bfef17a650e6748, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 043ce4520d73bd848bfef17a650e6748, type: 3}
---- !u!1 &4680078760146128611 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3776689194671627516, guid: 043ce4520d73bd848bfef17a650e6748, type: 3}
-  m_PrefabInstance: {fileID: 8402454691097154079}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &8210958948066038292 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 389750135420321803, guid: 043ce4520d73bd848bfef17a650e6748, type: 3}
+--- !u!4 &2811192302440304003 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6023802576853360540, guid: 043ce4520d73bd848bfef17a650e6748, type: 3}
   m_PrefabInstance: {fileID: 8402454691097154079}
   m_PrefabAsset: {fileID: 0}
