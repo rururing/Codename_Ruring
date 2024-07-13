@@ -11,7 +11,14 @@ using UnityEngine.EventSystems;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] float _decisionTime = 5f;
+    public float decisionTime
+    {
+        get { return _decisionTime; }
+        set { _decisionTime = value; }
+    }
+
     [SerializeField] float _decisionThreshold = 0.1f;
+    [SerializeField] float _rotateSpeed = 120.0f;
 
     GameObject _decisionCircle;
     
@@ -24,7 +31,7 @@ public class Enemy : MonoBehaviour
     Rigidbody2D _enemyRb;
 
 
-    public float MoveSpeed
+    public float moveSpeed
     {
         get { return _moveSpeed; }
         set { _moveSpeed = value; }
@@ -51,6 +58,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        RotateCircle();
         DebugDecision();
         CheckCircle();
     }
@@ -114,12 +122,14 @@ public class Enemy : MonoBehaviour
         float decision = Mathf.InverseLerp(_targetScale, _decCircleFirstScale, _decisionCircle.transform.lossyScale.x);
         if (decision <= _decisionThreshold)
         {
-            renderer.color = Color.green;
+            renderer.color = Color.white;
         }
-        else
-        {
-            renderer.color = Color.grey;
-        }
+    }
+
+    void RotateCircle()
+    {
+        transform.Rotate(0, 0, _rotateSpeed * Time.deltaTime);
+        _decisionCircle.transform.Rotate(0, 0, -_rotateSpeed * Time.deltaTime * 3);
     }
 
 

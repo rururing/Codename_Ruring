@@ -31,14 +31,14 @@ public class Spawner : MonoBehaviour
         _targetPos = transform.GetChild(0).transform.position; // WC
 
         // TEST
-        ReleaseEnemy(5.0f);
+        ReleaseEnemy(5.0f, LevelMode.Normal);
     }
     
-    public void ReleaseEnemy(float moveSpeed)
+    public void ReleaseEnemy(float moveSpeed, LevelMode currentLevel)
     {
         if (_spawnerPathMode == EPathMode.None) return;
 
-        GameObject enemyObj = _poolManager.GetEnemyObjReady(moveSpeed);
+        GameObject enemyObj = _poolManager.GetEnemyObjReady(moveSpeed, currentLevel);
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
 
@@ -46,25 +46,25 @@ public class Spawner : MonoBehaviour
         switch (_spawnerPathMode)
         {
             case EPathMode.Linear_Right:
-                enemy.EnemyRb.velocity = new Vector2(enemy.MoveSpeed, 0);
+                enemy.EnemyRb.velocity = new Vector2(enemy.moveSpeed, 0);
                 break;
 
             case EPathMode.Linear_Left:
-                enemy.EnemyRb.velocity = new Vector2(-enemy.MoveSpeed, 0);
+                enemy.EnemyRb.velocity = new Vector2(-enemy.moveSpeed, 0);
                 break;
 
             case EPathMode.Linear_Down:
-                enemy.EnemyRb.velocity = new Vector2(0, -enemy.MoveSpeed);
+                enemy.EnemyRb.velocity = new Vector2(0, -enemy.moveSpeed);
                 break;
 
             case EPathMode.Curve_Down:
-                enemy.transform.DOMoveX(_targetPos.x, enemy.MoveSpeed).SetEase(Ease.InQuad);
-                enemy.transform.DOMoveY(_targetPos.y, enemy.MoveSpeed).SetEase(Ease.OutQuad);
+                enemy.transform.DOMoveX(_targetPos.x, enemy.moveSpeed).SetEase(Ease.InQuad);
+                enemy.transform.DOMoveY(_targetPos.y, enemy.moveSpeed).SetEase(Ease.OutQuad);
                 break;
 
             case EPathMode.Curve_Up:
-                enemy.transform.DOMoveX(_targetPos.x, enemy.MoveSpeed).SetEase(Ease.OutQuad);
-                enemy.transform.DOMoveY(_targetPos.y, enemy.MoveSpeed).SetEase(Ease.InQuad);
+                enemy.transform.DOMoveX(_targetPos.x, enemy.moveSpeed).SetEase(Ease.OutQuad);
+                enemy.transform.DOMoveY(_targetPos.y, enemy.moveSpeed).SetEase(Ease.InQuad);
                 break;
 
         }
