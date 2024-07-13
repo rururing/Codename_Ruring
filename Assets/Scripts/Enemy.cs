@@ -2,25 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-// TODO: 각 State 당 임계값 설정
 public enum EHitState
 { 
     None,
     Fail,
-    Bad,
-    Good,
-    Perfect
+    Success
 }
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] float _decisionTime = 5f;
-    
+    [SerializeField] float _decisionThreshold = 0.1f;
+
     GameObject _decisionCircle;
     
     float _decCircleFirstScale;
@@ -30,6 +29,7 @@ public class Enemy : MonoBehaviour
 
     float _moveSpeed;
     Rigidbody2D _enemyRb;
+
 
     public float MoveSpeed
     {
@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        DebugDecision();
         CheckCircle();
     }
 
@@ -87,11 +88,6 @@ public class Enemy : MonoBehaviour
             OnDecided?.Invoke(EHitState.Fail);
             gameObject.SetActive(false);
         }
-        else if (currentScale > targetScale)
-        {
-            // TODO: EhitState 판정 판단해서 각 경우에 대한 이벤트 전달
-            
-        }
     }
 
     void ResetStatus_Disable()
@@ -104,10 +100,34 @@ public class Enemy : MonoBehaviour
 
     public void Hit()
     {
-        // TODO: 간격 판정 후 점수 invoke
-        
+        float decision = Mathf.InverseLerp(_targetScale, _decCircleFirstScale, _decisionCircle.transform.lossyScale.x);
+        if (decision <= _decisionThreshold)
+        {
+            OnDecided?.Invoke(EHitState.Success);
+        }
+        else
+        {
+            OnDecided?.Invoke(EHitState.Fail);
+        }
+
+        Debug.Log("OK");
+        transform.gameObject.SetActive(false);
     }
 
+    void DebugDecision()
+    {
+        SpriteRenderer renderer = _decisionCircle.GetComponent<SpriteRenderer>();
+
+        float decision = Mathf.InverseLerp(_targetScale, _decCircleFirstScale, _decisionCircle.transform.lossyScale.x);
+        if (decision <= _decisionThreshold)
+        {
+            renderer.color = Color.green;
+        }
+        else
+        {
+            renderer.color = Color.grey;
+        }
+    }
 
 
 }

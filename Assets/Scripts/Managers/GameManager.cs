@@ -12,20 +12,19 @@ public class GameManager : MonoSingleton<GameManager>
     
     string _sceneShootingName = "Scene_Shooting";
 
-    float _totalScore;
-    int _failScore, _badScore, _goodScore, _perfectScore;
+    int _totalScore;
+    int _successScore;
+
+    int _playerLife = 3;
 
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
         //_soundManager = SoundManager.Instance;
 
         // TODO: 값 변경
-        _failScore = -5;
-        _badScore = 1;
-        _goodScore = 5;
-        _perfectScore = 10;
+        _successScore = 100;
+
     }
 
     void Update()
@@ -36,13 +35,15 @@ public class GameManager : MonoSingleton<GameManager>
             print("Scene loaded from GameManager");
             SceneManager.LoadScene(_sceneShootingName);
         }
-
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == _sceneShootingName)
         {
+            Cursor.visible = false;
+            _playerLife = 3;
+
             _poolManager = FindObjectOfType<ObjectPoolManager>();
 
             if (_poolManager)
@@ -56,6 +57,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
         else
         {
+            Cursor.visible = true;
             _poolManager = null;
         }
     }
@@ -65,24 +67,19 @@ public class GameManager : MonoSingleton<GameManager>
         switch (hitState)
         {
             case EHitState.Fail:
-                _totalScore += _failScore;
-                break;
-            case EHitState.Bad:
-                _totalScore += _badScore;
-                break;
-            case EHitState.Good:
-                _totalScore += _goodScore;
-                break;
-            case EHitState.Perfect:
-                _totalScore += _perfectScore;
+                if (--_playerLife <= 0)
+                    print("GAME OVER");
+                print("FAIL SCORE ADDED");
                 break;
 
+            case EHitState.Success:
+                _totalScore += _successScore;
+                print("SUCCESS SCORE ADDED");
+                break;
             default:
                 break;
         }
 
     }
-
-
 
 }
