@@ -23,11 +23,7 @@ public class ObjectPoolManager : MonoBehaviour
         _spawners = new GameObject[_spawnerParent.transform.childCount];
 
         for (int i = 0; i < _spawners.Length; ++i)
-        {
             _spawners[i] = _spawnerParent.transform.GetChild(i).gameObject;
-            print(_spawners[i].name);
-        }
-
         Generate();
     }
 

@@ -39,7 +39,6 @@ public class Spawner : MonoBehaviour
         if (_spawnerPathMode == EPathMode.None) return;
 
         GameObject enemyObj = _poolManager.GetEnemyObjReady(moveSpeed);
-        Debug.Log(enemyObj.name);
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
 

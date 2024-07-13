@@ -20,7 +20,7 @@ public class GameManager : MonoSingleton<GameManager>
     int _totalScore;
     int _successScore;
 
-    int _playerLife = 3;
+    int _playerLife = 5;
 
     private void Awake()
     {
@@ -33,9 +33,7 @@ public class GameManager : MonoSingleton<GameManager>
         SceneManager.sceneLoaded += OnSceneLoaded;
         //_soundManager = SoundManager.Instance;
 
-        // TODO: 값 변경
         _successScore = 100;
-
     }
 
     void Update()
