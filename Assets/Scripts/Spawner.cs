@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -20,12 +21,14 @@ public class Spawner : MonoBehaviour
     //GameManager _gameManager;
     [SerializeField] ObjectPoolManager _poolManager;
 
-    [SerializeField] Vector3 _targetPos;
+    Vector3 _targetPos;
 
     void Start()
     {
         if (!_poolManager)
-            _poolManager = FindObjectOfType<ObjectPoolManager>(); 
+            _poolManager = FindObjectOfType<ObjectPoolManager>();
+
+        _targetPos = transform.GetChild(0).transform.position; // WC
 
         // TEST
         ReleaseEnemy();
@@ -33,6 +36,8 @@ public class Spawner : MonoBehaviour
     
     void ReleaseEnemy()
     {
+        if (_spawnerPathMode == EPathMode.None) return;
+
         GameObject enemyObj = _poolManager.SetEnemyObjReady();
         Debug.Log(enemyObj.name);
 
@@ -55,13 +60,11 @@ public class Spawner : MonoBehaviour
                 break;
 
             case EPathMode.Curve_DownRight:
-                // NEED FIX
                 enemy.transform.DOMoveX(_targetPos.x, 3).SetEase(Ease.InQuad);
                 enemy.transform.DOMoveY(_targetPos.y, 3).SetEase(Ease.OutQuad);
                 break;
 
             case EPathMode.Curve_DownLeft:
-                // NEED FIX 
                 enemy.transform.DOMoveX(_targetPos.x, 3).SetEase(Ease.InQuad);
                 enemy.transform.DOMoveY(_targetPos.y, 3).SetEase(Ease.OutQuad);
                 break;
@@ -69,10 +72,8 @@ public class Spawner : MonoBehaviour
 
     }
 
-    void MoveAlongCurve(GameObject enemyObj, Vector3[] path)
+    void OnDrawGizmos()
     {
-        //enemyObj.transform.DOPath(path, 2.0f, PathType.CatmullRom).SetEase(Ease.Linear);
-
-        enemyObj.transform.DOPath(path, 2.0f, PathType.CatmullRom).SetOptions(true) .SetEase(Ease.Linear);
+        Gizmos.DrawLine(transform.position, transform.GetChild(0).position);
     }
 }
