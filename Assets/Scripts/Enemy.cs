@@ -104,7 +104,13 @@ public class Enemy : MonoBehaviour
         _decisionCircle.transform.localScale = new Vector3(_decCircleFirstScale, _decCircleFirstScale, _decCircleFirstScale);
         _enemyRb.velocity = Vector2.zero;
 
-        transform.gameObject.SetActive(false);
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer renderer2 = _decisionCircle.GetComponent<SpriteRenderer>();
+        SpriteRenderer renderer3 = _fan.GetComponent<SpriteRenderer>();
+
+        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 1);
+        renderer2.color = new Color(renderer2.color.r, renderer2.color.g, renderer2.color.b, 1);
+        renderer3.color = new Color(renderer3.color.r, renderer3.color.g, renderer3.color.b, 1);
     }
 
     public void Hit()
@@ -113,14 +119,17 @@ public class Enemy : MonoBehaviour
         if (decision <= _decisionThreshold)
         {
             OnDecided?.Invoke(EHitState.Success);
+            fan.GetComponent<Animator>().SetTrigger("hitSuccess");
         }
         else
         {
             OnDecided?.Invoke(EHitState.Fail);
+            fan.GetComponent<Animator>().SetTrigger("hitFail");
         }
 
-        Debug.Log("OK");
-        transform.gameObject.SetActive(false);
+        StartCoroutine("OnHit");
+        // test
+        //transform.gameObject.SetActive(false);
     }
 
     void DebugDecision()
@@ -141,6 +150,34 @@ public class Enemy : MonoBehaviour
         _decisionCircle.transform.Rotate(0, 0, -_rotateSpeed * Time.deltaTime * 3);
     }
 
+    IEnumerator OnHit()
+    {
+        yield return null;
+        float elapsedTime = 0;
+
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer renderer2 = _decisionCircle.GetComponent<SpriteRenderer>();
+        SpriteRenderer renderer3 = _fan.GetComponent<SpriteRenderer>();  
+
+        Color initialColor = renderer.color;
+        
+        float duration = 0.3f;
+        while (elapsedTime <= duration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            float alpha = Mathf.Lerp(initialColor.a, 0, elapsedTime / duration);
+
+            renderer.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+            renderer2.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+            renderer3.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+
+
+
+
+            yield return null;
+        }
+    }
 
 }
 

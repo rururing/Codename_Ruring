@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5372515175975544881}
   - component: {fileID: 6371672329647161241}
   - component: {fileID: 2008824254789488425}
+  - component: {fileID: 1891190973407904136}
   m_Layer: 0
   m_Name: Fan_Man
   m_TagString: Untagged
@@ -106,3 +107,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1891190973407904136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298501223129388579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f392372bedbbd1b41977c341bfb2a400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

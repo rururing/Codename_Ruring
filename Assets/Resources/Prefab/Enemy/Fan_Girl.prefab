@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7431875195387701412}
   - component: {fileID: 6011191206705105608}
   - component: {fileID: 3880435458911143594}
+  - component: {fileID: 6861133925447501912}
   m_Layer: 0
   m_Name: Fan_Girl
   m_TagString: Untagged
@@ -106,3 +107,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6861133925447501912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6690210136220580313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f392372bedbbd1b41977c341bfb2a400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
