@@ -1,58 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour
 {
     [SerializeField] GameObject _enemyPrefab; // 인스펙터창에서 지정 필요
+    [SerializeField] GameObject _spawnerParent;
 
     const int POOLSIZE = 256;
-    GameObject[] _enemyPool;
+    
+    GameObject[] _enemyObjs;
     public Enemy[] _enemies;
+
+    GameObject[] _spawners;
 
     void Awake()
     {
-        _enemyPool = new GameObject[POOLSIZE];
+        _enemyObjs = new GameObject[POOLSIZE];
         _enemies = new Enemy[POOLSIZE];
+        _spawners = new GameObject[_spawnerParent.transform.childCount];
 
+        for (int i = 0; i < _spawners.Length; ++i)
+            _spawners[i] = _spawnerParent.transform.GetChild(i).gameObject;
         Generate();
     }
+
     void Generate()
     {
-        for(int i=0; i<_enemyPool.Length; i++) 
+        for(int i=0; i<_enemyObjs.Length; i++) 
         {
-            _enemyPool[i] = Instantiate(_enemyPrefab);
-            _enemies[i] = _enemyPool[i].GetComponent<Enemy>();  
-
-            _enemyPool[i].SetActive(false);
+            _enemyObjs[i] = Instantiate(_enemyPrefab);
+            _enemies[i] = _enemyObjs[i].GetComponent<Enemy>();  
+            _enemyObjs[i].SetActive(false);
         }
     }
 
     public void PoolsOff()
     {
-        for(int i=0; i<_enemyPool.Length; i++)
+        for(int i=0; i<_enemyObjs.Length; i++)
         {
-            _enemyPool[i].SetActive(false); 
+            _enemyObjs[i].SetActive(false); 
         }
 
         print("POOLS OFF");
     }
 
-    public GameObject SetEnemyObjReady()
+    public GameObject GetEnemyObjReady(float moveSpeed)
     {
-        for(int i=0; i<_enemyPool.Length; i++)
+        for(int i=0; i<_enemyObjs.Length; i++)
         {
-            if (!_enemyPool[i].activeSelf)
+            if (!_enemyObjs[i].activeSelf)
             {
-                _enemyPool[i].SetActive(true);
-                return _enemyPool[i];
+                _enemyObjs[i].SetActive(true);
+                _enemies[i].MoveSpeed = moveSpeed;
+
+                return _enemyObjs[i];
             }
         }
         Debug.Log("ALL ENEMIES ARE ACTIVE NOW");
         return null;
     }
 
+    public GameObject GetSpawner(int i)
+    {
+        return _spawners[i];
+    }
 
 
 

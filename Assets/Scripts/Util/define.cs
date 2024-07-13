@@ -14,9 +14,8 @@ public enum LevelMode
     Normal,
     Hard,
 }
-
 public enum EHitState
-{ 
+{
     None,
     Fail,
     Success
