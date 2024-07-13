@@ -20,7 +20,6 @@ public enum EHitState
     Fail,
     Success
 }
-
 // Used in SoundManager
 public enum ESoundType // Resources/Sound/Effect
 {

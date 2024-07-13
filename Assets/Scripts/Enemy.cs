@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-
 public class Enemy : MonoBehaviour
 {
     [SerializeField] float _decisionTime = 5f;
