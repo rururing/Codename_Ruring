@@ -25,6 +25,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public static Action Success = null;
     public static Action Fail = null;
+    public static Action GameClear = null;
+    public static Action GameOver = null;
     
     public static Dictionary<LevelMode, List<MusicData>> MusicPattern { get; private set; }= new Dictionary<LevelMode, List<MusicData>>();
 
@@ -98,7 +100,10 @@ public class GameManager : MonoSingleton<GameManager>
         {
             case EHitState.Fail:
                 if (--_playerLife <= 0)
+                {
                     print("GAME OVER");
+                    GameOver.Invoke();
+                }
                 print("FAIL SCORE ADDED");
                 Success.Invoke();
                 break;
