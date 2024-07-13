@@ -24,11 +24,18 @@ public enum EHitState
 // Used in SoundManager
 public enum ESoundType // Resources/Sound/Effect
 {
-    None,
+    AttackEffect,
+    Cheers,
+    ClickButton,
+    HeartBreak,
+    ScorePopup,
+    WinEffect,
+    LoseEffect,
 }
 
 // Used in BGMManager
 public enum EBGMType // Resources/Sound/BGM
 {
-    None,
+    BGM,
+    StarBubble,
 }

@@ -78,6 +78,7 @@ public class GunController : MonoBehaviour
     private void MouseFire()
     {
         if (!Input.GetMouseButtonDown(0)) return;
+        SoundManager.Instance.PlaySound(ESoundType.AttackEffect);
         if (CheckLimit()) direction = (calAngle > 0) ? directionLimitLeft : directionLimitRight;
         Debug.DrawRay(transform.position, direction * 1000f, Color.red, 4f);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, float.MaxValue);
@@ -87,6 +88,7 @@ public class GunController : MonoBehaviour
     private void KeyFire()
     {
         if (!Input.GetKeyDown(KeyCode.Space)) return;
+        SoundManager.Instance.PlaySound(ESoundType.AttackEffect);
         Debug.DrawRay(transform.position, transform.up * 1000f, Color.red, 4f);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, float.MaxValue);
         hit.collider?.gameObject.GetComponent<Enemy>().Hit();
@@ -95,11 +97,5 @@ public class GunController : MonoBehaviour
     private bool CheckLimit()
     {
         return calAngle >= angleLimit || calAngle <= -angleLimit;
-    }
-    
-    // 각도로부터 방향 벡터를 계산하는 함수
-    Vector3 GetDirectionFromAngle(float angleInDegrees)
-    {
-        return new Vector3(Mathf.Sin(angleInDegrees) * Mathf.Rad2Deg, 0f, 0f);
     }
 }
