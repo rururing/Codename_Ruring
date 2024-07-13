@@ -5,7 +5,8 @@ using UnityEngine;
 public struct MusicData
 {
     public float time;
-    public string route;
+    public int spawnPoint;
+    public float speed;
 }
 
 public enum LevelMode

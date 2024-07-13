@@ -12,6 +12,6 @@ public class LobbyTest : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Scene_Shooting");
     }
 }

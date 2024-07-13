@@ -9,9 +9,18 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoSingleton<GameManager>
 {
     public ObjectPoolManager _poolManager;
+    public static ObjectPoolManager PoolManager
+    {
+        get { return Instance._poolManager; }
+    }
+
     //SoundManager _soundManager;
+    
     private AlertManager alert;
     public static AlertManager Alerting { get { return Instance.alert; } }
+
+    public PatternReader _patternReader;
+    public LevelMode _levelMode;
     
     public static Dictionary<LevelMode, List<MusicData>> MusicPattern { get; private set; }= new Dictionary<LevelMode, List<MusicData>>();
 
@@ -21,6 +30,7 @@ public class GameManager : MonoSingleton<GameManager>
     int _successScore;
 
     int _playerLife = 5;
+    int _playerMaxLife = 5;
 
     private void Awake()
     {
@@ -51,7 +61,7 @@ public class GameManager : MonoSingleton<GameManager>
         if (scene.name == _sceneShootingName)
         {
             Cursor.visible = false;
-            _playerLife = 3;
+            _playerLife = _playerMaxLife;
 
             _poolManager = FindObjectOfType<ObjectPoolManager>();
 
@@ -68,6 +78,11 @@ public class GameManager : MonoSingleton<GameManager>
         {
             Cursor.visible = true;
             _poolManager = null;
+        }
+
+        if(scene.name == "Lobby")
+        {
+            _patternReader = FindObjectOfType<PatternReader>(); 
         }
     }
 
