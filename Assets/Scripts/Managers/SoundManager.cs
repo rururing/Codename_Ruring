@@ -4,43 +4,17 @@ using UnityEngine;
 
 
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoSingleton<SoundManager>
 {
     AudioClip[] _soundEffects;
     GameObject[] _speakers;
 
     string _effectPath = "Sound/Effect/";
-    string _prefabPath = "Prefab/Speaker/";
-
-    public static SoundManager Instance
-    {
-        get
-        {
-            if (!_instance)
-            {
-                var singleton = new GameObject("SoundManager", typeof(SoundManager));
-                _instance = singleton.GetComponent<SoundManager>();
-                DontDestroyOnLoad(singleton);
-            }
-
-            return _instance;
-        }
-    }
-    static SoundManager _instance;
+    string _prefabPath = "Prefab/Speaker/SoundManager";
+    
 
     void Awake()
     {
-        if (!_instance)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (_instance && _instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         _soundEffects = Resources.LoadAll<AudioClip>(_effectPath);
 
         _speakers = new GameObject[_soundEffects.Length];

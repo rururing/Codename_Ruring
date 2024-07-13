@@ -10,7 +10,7 @@ public class BGMManager : MonoBehaviour
     GameObject[] _speakers;
 
     string _bgmPath = "Sound/BGM/";
-    string _prefabPath = "Prefab/Speaker/";
+    string _prefabPath = "Prefab/Speaker/SoundManager";
 
     float _bgmVolume = 0.6f;
 
