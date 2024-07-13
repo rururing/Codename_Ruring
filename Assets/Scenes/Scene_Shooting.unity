@@ -152,8 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e5c89192f4eaa43898a231ee889790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 3587611460814327502, guid: 2639d63591b41e04784a8a4f3f9fd915, type: 3}
+  _enemyManPrefab: {fileID: 1237177783605683792, guid: abe5099564e591d43bcf5ad75aa101da, type: 3}
+  _enemyGirlPrefab: {fileID: 1237177783605683792, guid: 2639d63591b41e04784a8a4f3f9fd915, type: 3}
   _spawnerParent: {fileID: 1649658736}
+  _hitEffect: {fileID: 0}
   _enemies: []
 --- !u!4 &539460648
 Transform:
@@ -398,6 +400,10 @@ PrefabInstance:
     - target: {fileID: 6186962368491698143, guid: 728d8f654c8a44248b7f3e136193e4c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -42.672
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512380261446706954, guid: 728d8f654c8a44248b7f3e136193e4c3, type: 3}
+      propertyPath: useMouse
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

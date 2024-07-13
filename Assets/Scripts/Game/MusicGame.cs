@@ -35,8 +35,10 @@ namespace Game
             {
                 GameManager.Alerting.Alert(musicIndex.ToString(), AlertMode.Pop, 0.5f);
 
-                GameManager.PoolManager.GetSpawner(_musicPattern[musicIndex].spawnPoint).
-                    GetComponent<Spawner>().ReleaseEnemy(_musicPattern[musicIndex].speed, _decisionTime);
+                int spawnPoint = _musicPattern[musicIndex].spawnPoint;
+
+                GameObject spawner = GameManager.PoolManager.GetSpawner(spawnPoint);
+                spawner.GetComponent<Spawner>().ReleaseEnemy(_musicPattern[musicIndex].speed, _decisionTime, spawnPoint);
 
                 musicIndex++;
             }

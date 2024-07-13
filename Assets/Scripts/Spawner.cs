@@ -31,15 +31,14 @@ public class Spawner : MonoBehaviour
         _targetPos = transform.GetChild(0).transform.position; // WC
 
         // TEST
-        ReleaseEnemy(5.0f, 2.0f);
+        ReleaseEnemy(5.0f, 2.0f, 8);
     }
     
-    public void ReleaseEnemy(float moveSpeed, float decisionTime)
+    public void ReleaseEnemy(float moveSpeed, float decisionTime, int spawnPoint)
     {
         if (_spawnerPathMode == EPathMode.None) return;
 
         GameObject enemyObj = _poolManager.GetEnemyObjReady(moveSpeed, decisionTime);
-
         Enemy enemy = enemyObj.GetComponent<Enemy>();
 
         enemyObj.transform.position = transform.position;
@@ -68,7 +67,8 @@ public class Spawner : MonoBehaviour
                 break;
 
         }
-
+        SpriteRenderer fanSprite = enemy.fan.GetComponent<SpriteRenderer>();
+        fanSprite.flipX = (spawnPoint >= 0 && spawnPoint <= 6) ? true : false;
     }
 
     void OnDrawGizmos()

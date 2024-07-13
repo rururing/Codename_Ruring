@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour
 {
-    [SerializeField] GameObject _enemyPrefab; // 인스펙터창에서 지정 필요
+    [SerializeField] GameObject _enemyManPrefab; 
+    [SerializeField] GameObject _enemyGirlPrefab; // 인스펙터창에서 지정 필요
     [SerializeField] GameObject _spawnerParent;
+    [SerializeField] GameObject _hitEffect;
 
     const int POOLSIZE = 256;
     
@@ -24,6 +26,7 @@ public class ObjectPoolManager : MonoBehaviour
 
         for (int i = 0; i < _spawners.Length; ++i)
             _spawners[i] = _spawnerParent.transform.GetChild(i).gameObject;
+
         Generate();
     }
 
@@ -31,8 +34,15 @@ public class ObjectPoolManager : MonoBehaviour
     {
         for(int i=0; i<_enemyObjs.Length; i++) 
         {
-            _enemyObjs[i] = Instantiate(_enemyPrefab);
-            _enemies[i] = _enemyObjs[i].GetComponent<Enemy>();  
+            int flag = Random.Range(0, 2);
+            Debug.Log(flag);
+            if(flag == 0)
+                _enemyObjs[i] = Instantiate(_enemyManPrefab);
+            else
+                _enemyObjs[i] = Instantiate(_enemyGirlPrefab);
+
+            _enemies[i] = _enemyObjs[i].GetComponent<Enemy>();
+
             _enemyObjs[i].SetActive(false);
         }
     }
@@ -41,9 +51,8 @@ public class ObjectPoolManager : MonoBehaviour
     {
         for(int i=0; i<_enemyObjs.Length; i++)
         {
-            _enemyObjs[i].SetActive(false); 
+            _enemyObjs[i].SetActive(false);
         }
-
         print("POOLS OFF");
     }
 
@@ -67,7 +76,4 @@ public class ObjectPoolManager : MonoBehaviour
     {
         return _spawners[i];
     }
-
-
-
 }
