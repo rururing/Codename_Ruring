@@ -13,8 +13,8 @@ public class Spawner : MonoBehaviour
         Linear_Right,
         Linear_Left,
         Linear_Down,
-        Curve_DownRight,
-        Curve_DownLeft
+        Curve_Down,
+        Curve_Up
     }
 
     [SerializeField] EPathMode _spawnerPathMode;
@@ -31,18 +31,17 @@ public class Spawner : MonoBehaviour
         _targetPos = transform.GetChild(0).transform.position; // WC
 
         // TEST
-        ReleaseEnemy();
+        ReleaseEnemy(5.0f);
     }
     
-    void ReleaseEnemy()
+    public void ReleaseEnemy(float moveSpeed)
     {
         if (_spawnerPathMode == EPathMode.None) return;
 
-        GameObject enemyObj = _poolManager.SetEnemyObjReady();
+        GameObject enemyObj = _poolManager.GetEnemyObjReady(moveSpeed);
         Debug.Log(enemyObj.name);
 
         Enemy enemy = enemyObj.GetComponent<Enemy>();
-        enemy.MoveSpeed = 4.0f; // TODO: Change by difficulty
 
         enemyObj.transform.position = transform.position;
         switch (_spawnerPathMode)
@@ -59,15 +58,16 @@ public class Spawner : MonoBehaviour
                 enemy.EnemyRb.velocity = new Vector2(0, -enemy.MoveSpeed);
                 break;
 
-            case EPathMode.Curve_DownRight:
-                enemy.transform.DOMoveX(_targetPos.x, 3).SetEase(Ease.InQuad);
-                enemy.transform.DOMoveY(_targetPos.y, 3).SetEase(Ease.OutQuad);
+            case EPathMode.Curve_Down:
+                enemy.transform.DOMoveX(_targetPos.x, enemy.MoveSpeed).SetEase(Ease.InQuad);
+                enemy.transform.DOMoveY(_targetPos.y, enemy.MoveSpeed).SetEase(Ease.OutQuad);
                 break;
 
-            case EPathMode.Curve_DownLeft:
-                enemy.transform.DOMoveX(_targetPos.x, 3).SetEase(Ease.InQuad);
-                enemy.transform.DOMoveY(_targetPos.y, 3).SetEase(Ease.OutQuad);
+            case EPathMode.Curve_Up:
+                enemy.transform.DOMoveX(_targetPos.x, enemy.MoveSpeed).SetEase(Ease.OutQuad);
+                enemy.transform.DOMoveY(_targetPos.y, enemy.MoveSpeed).SetEase(Ease.InQuad);
                 break;
+
         }
 
     }
@@ -76,4 +76,10 @@ public class Spawner : MonoBehaviour
     {
         Gizmos.DrawLine(transform.position, transform.GetChild(0).position);
     }
+
+    // Shrink 속도 모드 따라서 in gmanager
+
+    // 어느 스포너인지 
+    // 움직이는 속도
+
 }

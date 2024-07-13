@@ -8,12 +8,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public enum EHitState
-{ 
-    None,
-    Fail,
-    Success
-}
 
 public class Enemy : MonoBehaviour
 {

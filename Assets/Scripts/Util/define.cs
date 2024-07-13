@@ -14,14 +14,11 @@ public enum LevelMode
     Normal,
     Hard,
 }
-
 public enum EHitState
-{ 
+{
     None,
     Fail,
-    Bad,
-    Good,
-    Perfect
+    Success
 }
 
 // Used in SoundManager
