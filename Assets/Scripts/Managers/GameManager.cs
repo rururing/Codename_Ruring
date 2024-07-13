@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +22,9 @@ public class GameManager : MonoSingleton<GameManager>
 
     public PatternReader _patternReader;
     public LevelMode _levelMode;
+
+    public static Action Success = null;
+    public static Action Fail = null;
     
     public static Dictionary<LevelMode, List<MusicData>> MusicPattern { get; private set; }= new Dictionary<LevelMode, List<MusicData>>();
 
@@ -29,8 +33,8 @@ public class GameManager : MonoSingleton<GameManager>
     int _totalScore;
     int _successScore;
 
-    int _playerLife = 5;
-    int _playerMaxLife = 5;
+    public static int _playerLife = 3;
+    public int _playerMaxLife = 3;
 
     private void Awake()
     {
@@ -96,11 +100,13 @@ public class GameManager : MonoSingleton<GameManager>
                 if (--_playerLife <= 0)
                     print("GAME OVER");
                 print("FAIL SCORE ADDED");
+                Success.Invoke();
                 break;
 
             case EHitState.Success:
                 _totalScore += _successScore;
                 print("SUCCESS SCORE ADDED");
+                Fail.Invoke();
                 break;
             default:
                 break;
